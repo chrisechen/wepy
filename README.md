@@ -12,3 +12,9 @@ npm  install
 
 开启实时编译
 wepy build --watch
+
+开发使用说明
+
+使用微信开发者工具新建项目，本地开发选择dist目录。
+微信开发者工具 --> 项目 --> 关闭ES6转ES5。
+本地项目根目录运行wepy build --watch，开启实时编译。
