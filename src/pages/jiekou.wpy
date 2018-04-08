@@ -1,0 +1,55 @@
+<style lang="less">
+  
+</style>
+
+<template>
+  <view class="chen" wx:for-items="{{listItem}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+    {{index}} {{item.name}}
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Jiekou extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test',
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
+  };
+  data = {
+    motto: 'Hello World',
+    userInfo: {},
+    listItem: []
+  };
+  methods = {
+    bindViewTap () {
+      console.log('button clicked')
+    }
+  };
+  onLoad() {
+    let self = this
+    console.log('onLoad')
+    wepy.request({
+      url: 'https://www.easy-mock.com/mock/5a90d25e81763562832917ab/myTest/homeList',
+      success: function (d) {
+        self.listItem = d.data
+        self.$apply()
+      }
+    })
+  };
+  onPullDownRefresh() {
+    let self = this
+    wepy.request({
+      url: 'https://www.easy-mock.com/mock/5abaf18742f56d2fba4391bd/homeList2/example',
+      success: function (d) {
+        self.listItem = d.data
+        self.$apply()
+      },
+      fail: function (res) { console.log('下拉失败') },
+      complete: function (res) {
+        wx.stopPullDownRefresh()
+      }
+    })
+  }
+}
+</script>
