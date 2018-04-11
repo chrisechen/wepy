@@ -1,0 +1,45 @@
+<style lang="less">
+view{
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.color1{
+  background: #eee;
+}
+</style>
+
+<template>
+<navigator url="/pages/jiekou" hover-class="none">
+    <view class="color1">to jiekou</view>
+</navigator>
+<navigator url="/pages/weui" hover-class="none">
+    <view>to weui</view>
+</navigator>
+<navigator url="/pages/index" hover-class="none">
+    <view class="color1">to index</view>
+</navigator>
+<navigator url="/pages/apiTest" hover-class="none">
+    <view>to api</view>
+</navigator>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Home extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+    motto: 'Hello World',
+    userInfo: {},
+    listItem: []
+  };
+  methods = {
+    bindViewTap () {
+      console.log('button clicked')
+    }
+  };
+  onLoad() {
+  }
+}
+</script>

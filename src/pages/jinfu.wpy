@@ -1,0 +1,43 @@
+<style lang="less">
+.img_wrap{
+  width: 100%;
+  height: 300rpx;
+}
+.slide-image{
+  width: 100%;
+}
+</style>
+
+<template>
+<swiper class="img_wrap" indicator-dots="true"
+autoplay="true" circular="true" interval="3000" duration="1000" indicator-active-color="#eee">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image"/>
+    </swiper-item>
+  </block>
+</swiper>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Jinfu extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ]
+  };
+  methods = {
+    bindViewTap () {
+      console.log('button clicked')
+    }
+  };
+  onLoad() {
+  }
+}
+</script>
