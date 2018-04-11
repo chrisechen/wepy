@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 page{
-    /*background-color: #F8F8F8;*/
+    background-color: #eee;
     font-size: 16px;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
 }
@@ -87,6 +87,12 @@ export default class extends wepy.app {
         iconPath: 'images/set_D.png',
         selectedIconPath: 'images/set.png'
       }]
+    },
+    networkTimeout: {
+      request: 10000,
+      connectSocket: 10000,
+      uploadFile: 10000,
+      downloadFile: 10000
     }
   }
 

@@ -24,6 +24,11 @@ const wxRequest = async(params = {}, url) => {
                 } else {
                     tip.alertDialog(result.statusCode+'错误，请联系管理员')
                 }
+            },
+            fail: function(result) {
+                tip.loaded()
+                console.log(result)
+                tip.alertDialog('超时')
             }
         });
     })

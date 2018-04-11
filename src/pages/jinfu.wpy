@@ -2,6 +2,18 @@
 .bb{
   border-bottom: 1px solid #eee;
 }
+.red{
+  color: red;
+}
+.mt10{
+  margin-top: 10rpx;
+}
+.inline{
+  display: inline-block;
+}
+.white_back{
+  background: #fff;
+}
 .img_wrap{
   width: 100%;
   height: 300rpx;
@@ -22,6 +34,10 @@
     padding-top: 8rpx;
   }
 }
+.apply_money{
+  width: 100%;
+  text-align: center;
+}
 </style>
 
 <template>
@@ -34,7 +50,7 @@ autoplay="true" circular="true" interval="3000" duration="1000" indicator-active
   </block>
 </swiper>
 
-<view class="weui-flex bb">
+<view class="weui-flex bb white_back">
   <view class="weui-flex__item">
     <image src="../images/home/zhuoedai.png" class="top_icon"/>
     <view class="icon_right">
@@ -50,7 +66,7 @@ autoplay="true" circular="true" interval="3000" duration="1000" indicator-active
     </view>
   </view>
 </view>
-<view class="weui-flex">
+<view class="weui-flex white_back">
   <view class="weui-flex__item">
     <image src="../images/home/loanmath.png" class="top_icon"/>
     <view class="icon_right">
@@ -67,10 +83,15 @@ autoplay="true" circular="true" interval="3000" duration="1000" indicator-active
   </view>
 </view>
 
+<view class="mt10 white_back apply_money">
+  <view class="inline">累计交易总额<view class="inline red">{{allMoney}}</view>元</view>
+</view>
+
 </template>
 
 <script>
 import wepy from 'wepy'
+import api from '../api/api'
 export default class Jinfu extends wepy.page {
   config = {
     navigationBarTitleText: 'test'
@@ -80,7 +101,13 @@ export default class Jinfu extends wepy.page {
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ]
+    ],
+    allMoney: ''
+  };
+  async getAllMoney () {
+    const json = await api.getAllMoney()
+    this.allMoney = json.result.data.loanAmount
+    this.$apply()
   };
   methods = {
     bindViewTap () {
@@ -88,6 +115,7 @@ export default class Jinfu extends wepy.page {
     }
   };
   onLoad() {
+    this.getAllMoney()
   }
 }
 </script>
