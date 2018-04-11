@@ -6,6 +6,10 @@ view{
 .color1{
   background: #eee;
 }
+.my_miaozhun{
+  color: red;
+  font-size: 18px;
+}
 </style>
 
 <template>
@@ -21,7 +25,7 @@ view{
 <navigator url="/pages/apiTest" hover-class="none">
     <view>to api</view>
 </navigator>
-<navigator url="/pages/jinfu" hover-class="none">
+<navigator open-type="switchTab" url="/pages/jinfu" hover-class="none">
     <view class="color1">to jinfu</view>
 </navigator>
 </template>
