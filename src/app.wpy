@@ -56,12 +56,12 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/jinfu',
       'pages/home',
       'pages/weui',
       'pages/jiekou',
       'pages/index',
-      'pages/apiTest'
+      'pages/apiTest',
+      'pages/jinfu'
     ],
     window: {
       backgroundTextStyle: 'light',

@@ -21,6 +21,9 @@ view{
 <navigator url="/pages/apiTest" hover-class="none">
     <view>to api</view>
 </navigator>
+<navigator url="/pages/jinfu" hover-class="none">
+    <view class="color1">to jinfu</view>
+</navigator>
 </template>
 
 <script>
