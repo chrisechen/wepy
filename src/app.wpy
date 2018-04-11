@@ -1,6 +1,6 @@
 <style lang="less">
 @import "./weui.less";
-@import "./styles/icon.less";
+@import "./styles/common.less";
 @import "./styles/iconfont.less";
 .container {
   height: 100%;
@@ -58,12 +58,12 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/jinfu',
       'pages/home',
       'pages/weui',
       'pages/jiekou',
       'pages/index',
-      'pages/apiTest',
-      'pages/jinfu'
+      'pages/apiTest'
     ],
     window: {
       backgroundTextStyle: 'light',
