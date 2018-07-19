@@ -1,0 +1,90 @@
+<style lang="less">
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+</style>
+<template>
+  <view class="container">
+    <echarts :ec="ec"></echarts>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import Echarts from '../components/echart'
+export default class ApiTest extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+    ec: {
+      option: {
+        title: {
+          text: '测试下面legend的红色区域不应被裁剪',
+          left: 'center'
+        },
+        color: ['#37A2DA', '#67E0E3', '#9FE6B8'],
+        legend: {
+          data: ['A', 'B', 'C'],
+          top: 50,
+          left: 'center',
+          backgroundColor: 'red',
+          z: 100
+        },
+        grid: {
+          containLabel: false
+        },
+        tooltip: {
+          tiggle: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+          x: 'center',
+          type: 'value'
+        },
+        series: [{
+          name: 'A',
+          type: 'line',
+          smooth: true,
+          data: [18, 36, 65, 30, 78, 40, 33]
+        }, {
+          name: 'B',
+          type: 'line',
+          smooth: true,
+          data: [12, 50, 51, 35, 70, 30, 20]
+        }, {
+          name: 'C',
+          type: 'line',
+          smooth: true,
+          data: [10, 30, 31, 50, 40, 20, 10]
+        }]
+      }
+    }
+  };
+  components = {
+    echarts: Echarts
+  }
+  methods = {};
+  onLoad() {}
+}
+
+</script>
