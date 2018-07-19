@@ -1,4 +1,4 @@
-<style type="css">
+<style lang="less">
 .ec-canvas {
   width: 100%;
   height: 100%;

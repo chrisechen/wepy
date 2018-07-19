@@ -28,6 +28,15 @@ view{
 <navigator open-type="switchTab" url="/pages/jinfu" hover-class="none">
     <view class="color1">to jinfu</view>
 </navigator>
+<navigator url="/pages/demo" hover-class="none">
+    <view>to echars-radar</view>
+</navigator>
+<navigator url="/pages/line" hover-class="none">
+    <view class="color1">to echars-line</view>
+</navigator>
+<navigator url="/pages/wxLine" hover-class="none">
+    <view>to wx-line</view>
+</navigator>
 </template>
 
 <script>

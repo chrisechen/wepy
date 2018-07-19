@@ -1,0 +1,124 @@
+<style lang="less">
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    -webkit-text-size-adjust:none;
+    -webkit-user-select: none;
+    font-size: 35rpx;
+    color: #333;
+    font-family: Helvetica,Arial,"Helvetica Neue","Droid Sans","Microsoft YaHei",sans-serif;
+}
+.canvas {
+    width: 100%;
+    height: 200px;
+}
+</style>
+<template>
+  <view class="container">
+    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+  <button type="primary" bindtap="updateData">更新数据</button>
+</view>
+</template>
+<script>
+import wepy from 'wepy'
+import WxCharts from '../utils/wxcharts.js'
+// var wxCharts = require('../utils/wxcharts.js')
+var lineChart = null
+export default class wxLine extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+  };
+  components = {
+  };
+  touchHandler (e) {
+    console.log(lineChart.getCurrentDataIndex(e))
+    lineChart.showToolTip(e, {
+      // background: '#7cb5ec',
+      format: function (item, category) {
+        return category + ' ' + item.name + ':' + item.data
+      }
+    })
+  };
+  createSimulationData () {
+    var categories = []
+    var data = []
+    for (var i = 0; i < 10; i++) {
+      categories.push('2016-' + (i + 1))
+      data.push(Math.random() * (20 - 10) + 10)
+    }
+    // data[4] = null;
+    return {
+      categories: categories,
+      data: data
+    }
+  };
+  updateData () {
+    var simulationData = this.createSimulationData()
+    var series = [{
+      name: '成交量1',
+      data: simulationData.data,
+      format: function (val, name) {
+        return val.toFixed(2) + '万'
+      }
+    }]
+    lineChart.updateData({
+      categories: simulationData.categories,
+      series: series
+    })
+  };
+  methods = {
+  };
+  onLoad(e) {
+    var windowWidth = 375
+    try {
+      var res = wx.getSystemInfoSync()
+      console.log(res)
+      windowWidth = res.windowWidth
+    } catch (e) {
+      console.error('getSystemInfoSync failed!')
+    }
+    var simulationData = this.createSimulationData()
+    lineChart = new WxCharts({
+      canvasId: 'lineCanvas',
+      type: 'line',
+      categories: simulationData.categories,
+      animation: true,
+      background: '#eee',
+      series: [{
+        name: '成交量1',
+        data: simulationData.data,
+        format: function (val, name) {
+          return val.toFixed(2) + '万'
+        }
+      }, {
+        name: '成交量2',
+        data: [2, 0, 0, 3, null, 4, 0, 0, 2, 0],
+        format: function (val, name) {
+          return val.toFixed(2) + '万'
+        }
+      }],
+      xAxis: {
+        disableGrid: true
+      },
+      yAxis: {
+        title: '成交金额 (万元)',
+        format: function (val) {
+          return val.toFixed(2)
+        },
+        min: 0
+      },
+      width: windowWidth,
+      height: 200,
+      dataLabel: false,
+      dataPointShape: true,
+      extra: {
+        lineStyle: 'curve'
+      }
+    })
+  }
+}
+</script>
