@@ -66,6 +66,10 @@ export default class extends wepy.app {
       'pages/weui',
       'pages/jiekou',
       'pages/index',
+      'pages/wxPie',
+      'pages/wxRing',
+      'pages/wxColumn',
+      'pages/wxRadar',
       'pages/apiTest'
     ],
     window: {

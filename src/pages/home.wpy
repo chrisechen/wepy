@@ -37,6 +37,18 @@ view{
 <navigator url="/pages/wxLine" hover-class="none">
     <view>to wx-line</view>
 </navigator>
+<navigator url="/pages/wxPie" hover-class="none">
+    <view class="color1">to wx-pie</view>
+</navigator>
+<navigator url="/pages/wxRing" hover-class="none">
+    <view>to wx-ring</view>
+</navigator>
+<navigator url="/pages/wxColumn" hover-class="none">
+    <view class="color1">to wx-column</view>
+</navigator>
+<navigator url="/pages/wxRadar" hover-class="none">
+    <view>to wx-radar</view>
+</navigator>
 </template>
 
 <script>

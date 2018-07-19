@@ -1,0 +1,157 @@
+<style lang="less">
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    -webkit-text-size-adjust:none;
+    -webkit-user-select: none;
+    font-size: 35rpx;
+    color: #333;
+    font-family: Helvetica,Arial,"Helvetica Neue","Droid Sans","Microsoft YaHei",sans-serif;
+}
+.canvas {
+    width: 100%;
+    height: 300px;
+}
+.title {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+}
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+</style>
+<template>
+<view class="container">
+  <view class="title">
+    <view wx:if="{{!isMainChartDisplay}}" class="back-btn" bindtap="backToMainChart">返回</view>
+    {{chartTitle}}
+  </view>
+    <canvas canvas-id="columnCanvas" class="canvas" bindtouchstart="touchHandler"></canvas>
+    <view style="text-align:center">点击数据每一项查看详情</view>
+</view>
+</template>
+<script>
+import wepy from 'wepy'
+import WxCharts from '../utils/wxcharts.js'
+// var wxCharts = require('../utils/wxcharts.js')
+var columnChart = null
+export default class wxLine extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+    chartData: {
+      main: {
+        title: '总成交量',
+        data: [15, 20, 45, 37],
+        categories: ['2012', '2013', '2014', '2015']
+      },
+      sub: [{
+        title: '2012年度成交量',
+        data: [70, 40, 65, 100, 34, 18],
+        categories: ['1', '2', '3', '4', '5', '6']
+      }, {
+        title: '2013年度成交量',
+        data: [55, 30, 45, 36, 56, 13],
+        categories: ['1', '2', '3', '4', '5', '6']
+      }, {
+        title: '2014年度成交量',
+        data: [76, 45, 32, 74, 54, 35],
+        categories: ['1', '2', '3', '4', '5', '6']
+      }, {
+        title: '2015年度成交量',
+        data: [76, 54, 23, 12, 45, 65],
+        categories: ['1', '2', '3', '4', '5', '6']
+      }]
+    },
+    chartTitle: '总成交量',
+    isMainChartDisplay: true
+  };
+  components = {
+  };
+  backToMainChart () {
+    let self = this
+    self.chartTitle = self.chartData.main.title
+    self.isMainChartDisplay = true
+    columnChart.updateData({
+      categories: self.chartData.main.categories,
+      series: [{
+        name: '成交量',
+        data: self.chartData.main.data,
+        format: function (val, name) {
+          return val.toFixed(2) + '万'
+        }
+      }]
+    })
+  };
+  touchHandler (e) {
+    let self = this
+    var index = columnChart.getCurrentDataIndex(e)
+    if (index > -1 && index < self.chartData.sub.length && self.isMainChartDisplay) {
+      self.chartTitle = self.chartData.sub[index].title
+      self.isMainChartDisplay = false
+      columnChart.updateData({
+        categories: self.chartData.sub[index].categories,
+        series: [{
+          name: '成交量',
+          data: self.chartData.sub[index].data,
+          format: function (val, name) {
+            return val.toFixed(2) + '万'
+          }
+        }]
+      })
+    }
+  };
+  methods = {
+  };
+  onLoad(e) {
+    let self = this
+    var windowWidth = 375
+    try {
+      var res = wx.getSystemInfoSync()
+      windowWidth = res.windowWidth
+    } catch (e) {
+      console.error('getSystemInfoSync failed!')
+    }
+    columnChart = new WxCharts({
+      animation: true,
+      canvasId: 'columnCanvas',
+      type: 'column',
+      background: '#eee',
+      categories: self.chartData.main.categories,
+      extra: {
+        column: {
+          width: 15
+        }
+      },
+      series: [{
+        name: '成交量',
+        data: self.chartData.main.data,
+        format: function (val, name) {
+          return val.toFixed(2) + '万'
+        }
+      }],
+      xAxis: {
+        disableGrid: false,
+        type: 'calibration'
+      },
+      yAxis: {
+        format: function (val) {
+          return val + '万'
+        },
+        title: 'hello',
+        min: 0
+      },
+      width: windowWidth,
+      height: 300
+    })
+  }
+}
+</script>

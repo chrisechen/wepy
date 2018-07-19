@@ -1,0 +1,86 @@
+<style lang="less">
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    -webkit-text-size-adjust:none;
+    -webkit-user-select: none;
+    font-size: 35rpx;
+    color: #333;
+    font-family: Helvetica,Arial,"Helvetica Neue","Droid Sans","Microsoft YaHei",sans-serif;
+}
+.canvas {
+    width: 100%;
+    height: 300px;
+}
+</style>
+<template>
+  <view class="container">
+    <canvas canvas-id="pieCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+</view>
+</template>
+<script>
+import wepy from 'wepy'
+import WxCharts from '../utils/wxcharts.js'
+// var wxCharts = require('../utils/wxcharts.js')
+var pieChart = null
+export default class wxLine extends wepy.page {
+  config = {
+    navigationBarTitleText: 'test'
+  };
+  data = {
+  };
+  components = {
+  };
+  touchHandler (e) {
+    console.log(pieChart.getCurrentDataIndex(e))
+  };
+  methods = {
+  };
+  onLoad(e) {
+    var windowWidth = 375
+    try {
+      var res = wx.getSystemInfoSync()
+      windowWidth = res.windowWidth
+    } catch (e) {
+      console.error('getSystemInfoSync failed!')
+    }
+    pieChart = new WxCharts({
+      canvasId: 'pieCanvas',
+      type: 'pie',
+      series: [{
+        name: '成交量1',
+        data: 15
+      }, {
+        name: '成交量2',
+        data: 35
+      }, {
+        name: '成交量3',
+        data: 78
+      }, {
+        name: '成交量4',
+        data: 63
+      }, {
+        name: '成交量5',
+        data: 88
+      }, {
+        name: '成交量6',
+        data: 35
+      }, {
+        name: '成交量7',
+        data: 78
+      }, {
+        name: '成交量8',
+        data: 63
+      }, {
+        name: '成交量9',
+        data: 88
+      }],
+      width: windowWidth,
+      height: 300,
+      dataLabel: true// 是否显示饼图的每一项数据
+    })
+  }
+}
+</script>
