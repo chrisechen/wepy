@@ -28,7 +28,7 @@ const wxRequest = async(params = {}, url) => {
             fail: function(result) {
                 tip.loaded()
                 console.log(result)
-                tip.alertDialog('超时')
+                tip.alertDialog('数据请求错误')
             }
         });
     })

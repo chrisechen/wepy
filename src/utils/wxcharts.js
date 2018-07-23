@@ -1524,8 +1524,10 @@ function drawPieDataPoints(series, opts, config, context) {
     });
     series.forEach(function (eachSeries) {
         context.beginPath();
-        context.setLineWidth(2);
-        context.setStrokeStyle('#ffffff');
+        /* context.setLineWidth(2);
+        context.setStrokeStyle('#ffffff'); 去掉饼状图的白线*/
+        context.setLineWidth(0);
+        context.setStrokeStyle(eachSeries.color);
         context.setFillStyle(eachSeries.color);
         context.moveTo(centerPosition.x, centerPosition.y);
         context.arc(centerPosition.x, centerPosition.y, radius, eachSeries._start_, eachSeries._start_ + 2 * eachSeries._proportion_ * Math.PI);
